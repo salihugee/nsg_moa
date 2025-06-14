@@ -1,0 +1,133 @@
+# NSG MoA API Tests
+
+### Login as admin
+POST http://localhost:8000/api/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@nsgmoa.test",
+    "password": "Test123!"
+}
+
+### Get current user profile
+GET http://localhost:8000/api/v1/auth/me
+Authorization: Bearer {{auth_token}}
+
+### List all users (admin only)
+GET http://localhost:8000/api/v1/users
+Authorization: Bearer {{auth_token}}
+
+### Create a new farmer
+POST http://localhost:8000/api/v1/farmers
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "name": "John Doe",
+    "registration_number": "NSG-F-2025-001",
+    "phone": "+2349012345678",
+    "address": "123 Farm Road, Lafia",
+    "location_coordinates": {
+        "type": "Point",
+        "coordinates": [8.4927, 8.5227]
+    }
+}
+
+### List all farmers
+GET http://localhost:8000/api/v1/farmers
+Authorization: Bearer {{auth_token}}
+
+### Create a new farm
+POST http://localhost:8000/api/v1/farms
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "farmer_id": 1,
+    "name": "Doe Family Farm",
+    "size": 5.5,
+    "size_unit": "hectares",
+    "boundaries": {
+        "type": "Polygon",
+        "coordinates": [[[8.4927, 8.5227], [8.4937, 8.5227], [8.4937, 8.5237], [8.4927, 8.5237], [8.4927, 8.5227]]]
+    }
+}
+
+### List all farms
+GET http://localhost:8000/api/v1/farms
+Authorization: Bearer {{auth_token}}
+
+### Add a crop
+POST http://localhost:8000/api/v1/crops
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "farm_id": 1,
+    "name": "Maize",
+    "variety": "SAMMAZ 19",
+    "planting_date": "2025-06-14",
+    "expected_harvest_date": "2025-09-14",
+    "area": 2.5,
+    "area_unit": "hectares"
+}
+
+### List all crops
+GET http://localhost:8000/api/v1/crops
+Authorization: Bearer {{auth_token}}
+
+### Add weather data
+POST http://localhost:8000/api/v1/weather-data
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "temperature": 28.5,
+    "humidity": 65,
+    "rainfall": 25.4,
+    "wind_speed": 12,
+    "location": {
+        "type": "Point",
+        "coordinates": [8.4927, 8.5227]
+    }
+}
+
+### Get weather data
+GET http://localhost:8000/api/v1/weather-data
+Authorization: Bearer {{auth_token}}
+
+### Create a project
+POST http://localhost:8000/api/v1/projects
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "name": "Maize Yield Improvement",
+    "description": "Project to improve maize yield in Lafia area",
+    "start_date": "2025-06-14",
+    "end_date": "2025-12-14",
+    "coverage_area": {
+        "type": "Polygon",
+        "coordinates": [[[8.4, 8.5], [8.5, 8.5], [8.5, 8.6], [8.4, 8.6], [8.4, 8.5]]]
+    }
+}
+
+### List projects
+GET http://localhost:8000/api/v1/projects
+Authorization: Bearer {{auth_token}}
+
+### Send SMS communication
+POST http://localhost:8000/api/v1/communications
+Content-Type: application/json
+Authorization: Bearer {{auth_token}}
+
+{
+    "recipient_id": 1,
+    "recipient_type": "farmer",
+    "message": "Weather alert: Heavy rainfall expected tomorrow. Please secure your crops.",
+    "type": "sms"
+}
+
+### List communications
+GET http://localhost:8000/api/v1/communications
+Authorization: Bearer {{auth_token}}

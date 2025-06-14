@@ -1,0 +1,1045 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "NSG MOA API Documentation",
+        "description": "Nasarawa State Ministry of Agriculture M&E System API documentation",
+        "contact": {
+            "email": "support@nsgmoa.gov.ng"
+        },
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/v1/analytics/dashboard": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Get dashboard analytics",
+                "operationId": "05d184da4e8c54be2eb7790119b8767e",
+                "responses": {
+                    "200": {
+                        "description": "Dashboard analytics data",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "total_farmers": {
+                                            "type": "integer"
+                                        },
+                                        "total_farms": {
+                                            "type": "integer"
+                                        },
+                                        "total_farm_area": {
+                                            "type": "number"
+                                        },
+                                        "active_projects": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/analytics/spatial-distribution": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Get spatial distribution of farmers and farms",
+                "operationId": "da3a5b8bfee65add8a20f2a647ddefa4",
+                "responses": {
+                    "200": {
+                        "description": "Spatial distribution data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/analytics/project-metrics": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Get project performance metrics",
+                "operationId": "a27d1962ca79f688b4c4bd904d441e2a",
+                "responses": {
+                    "200": {
+                        "description": "Project metrics data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/analytics/weather-trends": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Get weather trends and analysis",
+                "operationId": "82d5445dd1179058fe38dd8ab37f6283",
+                "parameters": [
+                    {
+                        "name": "days",
+                        "in": "query",
+                        "description": "Number of days to analyze",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Weather trends data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/analytics/farm-productivity": {
+            "get": {
+                "tags": [
+                    "Analytics"
+                ],
+                "summary": "Get farm productivity analysis",
+                "operationId": "dc2098a354987b1a1ce438985fd356ae",
+                "responses": {
+                    "200": {
+                        "description": "Farm productivity data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/register": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Register a new user",
+                "operationId": "fb835c97347e657e2a627790c4c5817a",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "format": "password"
+                                    },
+                                    "role_id": {
+                                        "type": "integer"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "User registered successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation error"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/login": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Login user",
+                "operationId": "fb66b153966d9fac2e999136ef0ade67",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "user": {
+                                            "type": "object"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Invalid credentials"
+                    }
+                }
+            }
+        },
+        "/api/v1/auth/me": {
+            "get": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Get authenticated user",
+                "operationId": "5389aaa95512ef0b6ec88f262ecee7f0",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "user": {
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/logout": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Logout user",
+                "operationId": "307ed0512855922b2280792376bb2095",
+                "responses": {
+                    "200": {
+                        "description": "Logout successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/auth/refresh": {
+            "post": {
+                "tags": [
+                    "Authentication"
+                ],
+                "summary": "Refresh token",
+                "operationId": "40586da4366a27fa3381f9299144b55f",
+                "responses": {
+                    "200": {
+                        "description": "Token refreshed successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        },
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/data/import": {
+            "post": {
+                "tags": [
+                    "Data Management"
+                ],
+                "summary": "Import data from CSV files",
+                "operationId": "c7a7a6760eed187a37676323425ce94b",
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "file": {
+                                        "type": "file",
+                                        "format": "binary"
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "enum": [
+                                            "farmers",
+                                            "farms",
+                                            "projects"
+                                        ]
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Data imported successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/data/export/{type}": {
+            "get": {
+                "tags": [
+                    "Data Management"
+                ],
+                "summary": "Export data to CSV",
+                "operationId": "8828ab36e3138714fec8fa4c06bd08ba",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "farmers",
+                                "farms",
+                                "projects"
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "CSV file download"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/farmers": {
+            "get": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Get list of farmers",
+                "operationId": "8044bbebf065e37fc63db6926112a802",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page number",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of farmers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/Farmer"
+                                            }
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Create a new farmer",
+                "operationId": "a9db659906f41717b6dd13ee640fb6a5",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/StoreFarmerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Farmer created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Farmer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/farmers/{id}": {
+            "get": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Get specific farmer",
+                "operationId": "94fc9dd79745ee6ad8db5016f0887d73",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Farmer details",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Farmer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Update farmer",
+                "operationId": "0c3b45b2666751f6adb3840f8801568c",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UpdateFarmerRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Farmer updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Farmer"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Delete farmer",
+                "operationId": "e543d24a945dbfd7e9f738b3773bc567",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Farmer deleted successfully"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/farmers/nearby/{lat}/{lng}/{distance}": {
+            "get": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Find farmers within distance",
+                "operationId": "5a5d45c2ffbbcb483444c4b844972416",
+                "parameters": [
+                    {
+                        "name": "lat",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    },
+                    {
+                        "name": "lng",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "number",
+                            "format": "float"
+                        }
+                    },
+                    {
+                        "name": "distance",
+                        "in": "path",
+                        "description": "Distance in meters",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "List of nearby farmers",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Farmer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/farmers/in-area": {
+            "post": {
+                "tags": [
+                    "Farmers"
+                ],
+                "summary": "Find farmers in area",
+                "operationId": "c44bdc159b6216bd4a9d63f43266c087",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "area": {
+                                        "description": "GeoJSON polygon",
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "List of farmers in area",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Farmer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/monitoring/queue": {
+            "get": {
+                "tags": [
+                    "Monitoring"
+                ],
+                "summary": "Get queue status",
+                "operationId": "97c5b1099abf2beb5b35ac64214fdee8",
+                "responses": {
+                    "200": {
+                        "description": "Queue status information"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/monitoring/sms": {
+            "get": {
+                "tags": [
+                    "Monitoring"
+                ],
+                "summary": "Get SMS statistics",
+                "operationId": "e502446495c676933abb2709d44465ff",
+                "responses": {
+                    "200": {
+                        "description": "SMS statistics"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/monitoring/failed-jobs": {
+            "get": {
+                "tags": [
+                    "Monitoring"
+                ],
+                "summary": "Get failed jobs",
+                "operationId": "12fc728d4bcbd4647bac08cf1e485cfd",
+                "responses": {
+                    "200": {
+                        "description": "Failed jobs list"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/api/v1/monitoring/retry-job/{id}": {
+            "post": {
+                "tags": [
+                    "Monitoring"
+                ],
+                "summary": "Retry a failed job",
+                "operationId": "b40e0ebdcf84f40d1c3ed968e292fad5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Job retry status"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "StoreFarmerRequest": {
+                "description": "Farmer creation request",
+                "required": [
+                    "registration_number",
+                    "full_name",
+                    "phone_number",
+                    "location_coordinates",
+                    "farm_size",
+                    "registration_date",
+                    "status"
+                ],
+                "properties": {
+                    "registration_number": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "maxLength": 20
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "location_coordinates": {
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "Point"
+                                ]
+                            },
+                            "coordinates": {
+                                "type": "array",
+                                "items": {
+                                    "type": "number"
+                                },
+                                "maxItems": 2,
+                                "minItems": 2
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "farm_size": {
+                        "type": "number",
+                        "format": "float",
+                        "minimum": 0
+                    },
+                    "registration_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "active",
+                            "inactive",
+                            "pending"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "UpdateFarmerRequest": {
+                "description": "Farmer update request",
+                "required": [
+                    "registration_number",
+                    "full_name",
+                    "phone_number",
+                    "location_coordinates",
+                    "farm_size",
+                    "registration_date",
+                    "status"
+                ],
+                "properties": {
+                    "registration_number": {
+                        "type": "string",
+                        "maxLength": 100
+                    },
+                    "full_name": {
+                        "type": "string",
+                        "maxLength": 255
+                    },
+                    "phone_number": {
+                        "type": "string",
+                        "maxLength": 20
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "maxLength": 255,
+                        "nullable": true
+                    },
+                    "location_coordinates": {
+                        "properties": {
+                            "type": {
+                                "type": "string",
+                                "enum": [
+                                    "Point"
+                                ]
+                            },
+                            "coordinates": {
+                                "type": "array",
+                                "items": {
+                                    "type": "number"
+                                },
+                                "maxItems": 2,
+                                "minItems": 2
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "farm_size": {
+                        "type": "number",
+                        "format": "float",
+                        "minimum": 0
+                    },
+                    "registration_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": [
+                            "active",
+                            "inactive",
+                            "pending"
+                        ]
+                    }
+                },
+                "type": "object"
+            },
+            "Farmer": {
+                "description": "Farmer model",
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    "registration_number": {
+                        "type": "string"
+                    },
+                    "full_name": {
+                        "type": "string"
+                    },
+                    "phone_number": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "location_geojson": {
+                        "type": "object"
+                    },
+                    "farm_size": {
+                        "type": "number",
+                        "format": "float"
+                    },
+                    "registration_date": {
+                        "type": "string",
+                        "format": "date"
+                    },
+                    "status": {
+                        "type": "string"
+                    },
+                    "user_id": {
+                        "type": "integer"
+                    },
+                    "address": {
+                        "type": "string"
+                    },
+                    "primary_crop": {
+                        "type": "string"
+                    },
+                    "years_farming": {
+                        "type": "integer"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updated_at": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "type": "object"
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Farmers",
+            "description": "API Endpoints for managing farmers"
+        },
+        {
+            "name": "Analytics",
+            "description": "Analytics"
+        },
+        {
+            "name": "Authentication",
+            "description": "Authentication"
+        },
+        {
+            "name": "Data Management",
+            "description": "Data Management"
+        },
+        {
+            "name": "Monitoring",
+            "description": "Monitoring"
+        }
+    ]
+}
